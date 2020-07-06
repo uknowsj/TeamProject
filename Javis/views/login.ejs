@@ -1,38 +1,53 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, minimum-scale=1.0, user-scalable=yes" /> 
-        <title>자비스-나만의 자격증 비서</title>
-        <link href="bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="src/css/nav.css" rel="stylesheet">
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-        <script src="bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
-            
-        <script src="/Library/JQuery/jquery-1.7.1.min.js"></script>
-    </head>
-
-    <body>
-        <div id="wrap">
-            <!------------------- 상단 navbar ------------------->
-            <header>
+<head>
+    <%- include ("./common/head") %>
+</head>
+<script>
+    function checkform(){
+        if(!document.loginForm.user_id.value){
+            alert("아이디를 입력하세요");
+            document.loginForm.user_id.focus();
+            return;
+        }
+        if(!document.loginForm.user_pw.value){
+            alert("비밀번호를 입력하세요");
+            document.loginForm.user_pw.focus();
+            return;
+        }
+            document.loginForm.submit();
+    }
+</script>
+<body>
+    <div id="wrap">
+        <!------------------- 상단 navbar ------------------->
+        <header>
             <%- include ("./common/navbar") %>
-            </header>
+        </header>
+
 
             <div class="join-wrap">
-                <div class="content-header text-center">
-                    <h3>Login Form</h3>
+                <div class="wrap-header">
+                    <h3>로그인</h3>
+                    <p>안녕하세요 자비스 입니다:)</p>
                 </div>
                 <div class="join-input">
-                    <input type="text" class="form-control" placeholder="Username">
-                    <input type="password"  class="form-control" placeholder="Enter your Password">
-                    <input type="submit" class="btn btn-default" placeholder="Enter your Password" >
+                    <form name=loginForm method="post" action="/login">
+                        <dl>
+                            <dd><input type="text" name="user_id" placeholder="아이디""></dd>
+                        </dl>
+                        <dl>
+                            <dd><input type="password" name="user_pw" placeholder="비밀번호"></dd>
+                        </dl>
+                        <button type="button" class="btn" onclick="checkform()">로그인</button>
+                        <dl class="bottom-letter">
+                            <input type="checkbox">로그인유지 | </input>
+                            <a href="/join">회원가입</a>
+                        </dl>
+                    </form>
                 </div>
             </div>
+
         </div>
         
     </body>
