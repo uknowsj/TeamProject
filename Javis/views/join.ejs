@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <%- include ("./common/head") %>
+    </head>
+    <script type="text/javascript">
+        function joinForm(){
+            if(!document.joinForm1.user_id.value){
+                alert("아이디를 입력하세요");
+                document.joinForm1.user_id.focus();
+                return;
+            }
+            if(!document.joinForm1.user_nickname.value){
+                alert("닉네임을 입력하세요");
+                document.joinForm1.user_nickname.focus();
+                return;
+            }
+            if(!document.joinForm1.user_pw1.value){
+                alert("비밀번호를 입력하세요");
+                document.joinForm1.user_pw1.focus();
+                return;
+            }
+            if(!document.joinForm1.user_pw2.value){
+                alert("비밀번호 확인을 입력하세요");
+                document.joinForm1.user_pw2.focus();
+                return;
+            }
+            if(document.joinForm1.user_pw1.value!=document.joinForm1.user_pw2.value){
+                alert("비밀번호 확인이 일치하지 않습니다");
+                document.joinForm1.user_pw2.focus();
+                return;
+            }
+            else{
+                document.joinForm1.submit();
+                //다음 페이지로 이동
+            }
+        };
+
+    </script>
+    <body>
+
+        <div id="wrap">
+            <!------------------- 상단 navbar ------------------->
+            <header>
+                <%- include ("./common/navbar") %>
+            </header>
+
+            <!------------------- 회원가입 창-(1) ------------------->
+
+            <div id="container">
+               <div class="join-wrap">
+                    <div class="wrap-header">
+                        <h3>회원가입</h3>
+                        <p>회원가입 시 관심 시험 일정과 전공별 맞춤 자격증/시험을 확인하실 수 있습니다</p>
+                    </div>
+                    <div class="join-input">
+                        <!-- 기본 정보 -->
+                        <form name="joinForm1" method="POST" action="/join2">
+                            <dl>
+                                <dt>아이디</dt>
+                                    <dd><input type="text" name="user_id"/></dd>
+                            </dl>
+                            <dl>
+                                <dt>닉네임</dt>
+                                    <dd><input type="text" name="user_nickname"/></dd>
+                            </dl>
+                            <dl>
+                                <dt>비밀번호</dt>
+                                    <dd><input type="password" name="user_pw1"/></dd>
+                            </dl>
+                            <dl>
+                                <dt>비밀전호 확인</dt>
+                                    <dd><input type="password" name="user_pw2"/></dd>
+                            </dl>
+                            <button type="button" class="btn btn-default" onclick="joinForm()">다음 페이지</button>
+                        </form>
+                    </div>
+
+            </div><!--//container-->
+
+
+
+
+
+        </div><!--//wrap-->
+
+                   <!------------------- 푸터 ------------------->
+                    <div class="footer">
+                        <%- include ("./common/footer") %>
+                    </div>
+        
+    
+    
+    
+    </body>
+</html>

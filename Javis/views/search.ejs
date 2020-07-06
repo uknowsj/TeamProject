@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, minimum-scale=1.0, user-scalable=yes" /> 
+        <title>자비스-나만의 자격증 비서</title>
+        <link href="bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="src/css/nav.css" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
+        <script src="bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
+            
+        <script src="/Library/JQuery/jquery-1.7.1.min.js"></script>
+    </head>
+
+    <body>
+        <div id="wrap">
+            <!------------------- 상단 navbar ------------------->
+            <header>
+            <%- include ("./common/navbar") %>
+            </header>
+
+            <!------------------- 검색결과 ------------------->
+
+            <div class="content-header text-left">
+                <h2>'<%-request-%>' 검색결과</h2>
+            </div>
+
+
+            <!------------------- 자격증 검색결과 ------------------->
+        
+            <div class=certifiInfo">
+                <div class="content-header text-left">
+                    <h3>자격증/시험</h3>
+                </div>
+            
+                <div class="row">
+                    <div class="media-list">
+                        <div class="col-sm-6 col-md-3">
+                            <li class="media" >
+                            <div class="media-left">
+                                <a href="#">
+                                <img class="media-object" src="http://placehold.it/64x64" alt="certifiThumnail">
+                                </a>
+                            </div>
+                            <div class="media-body" style="border:1px solid green">
+                                <h4 class="media-heading">토익</h4>
+                                <p class="text-overflow">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, placeat.</p>
+                            </div>
+                            </li>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3">
+                            <li class="media" >
+                            <div class="media-left">
+                                <a href="#">
+                                <img class="media-object" src="http://placehold.it/64x64" alt="certifiThumnail">
+                                </a>
+                            </div>
+                            <div class="media-body" style="border:1px solid green">
+                                <h4 class="media-heading">토익</h4>
+                                <p class="text-overflow">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, placeat.</p>
+                            </div>
+                            </li>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3">
+                            <li class="media" >
+                            <div class="media-left">
+                                <a href="#">
+                                <img class="media-object" src="http://placehold.it/64x64" alt="certifiThumnail">
+                                </a>
+                            </div>
+                            <div class="media-body" style="border:1px solid green">
+                                <h4 class="media-heading">토익</h4>
+                                <p class="text-overflow">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, placeat.</p>
+                            </div>
+                            </li>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3">
+                            <li class="media" >
+                            <div class="media-left">
+                                <a href="#">
+                                <img class="media-object" src="http://placehold.it/64x64" alt="certifiThumnail">
+                                </a>
+                            </div>
+                            <div class="media-body" style="border:1px solid green">
+                                <h4 class="media-heading">토익</h4>
+                                <p class="text-overflow">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, placeat.</p>
+                            </div>
+                            </li>
+                        </div>
+                    
+                    
+                    
+                    </div>
+                </div>
+        </div>
+            <!------------------- 클래스 검색결과 ------------------->
+            <div class="classInfo">
+                <div class="content-header text-left">
+                    <h3>클래스 검색결과</h3>
+                </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <a class="conetent-body" href="https://www.naver.com/">
+                                    <img src="http://placehold.it/243x400" alt="thumbnail">
+                                    <h3>Thumbnail label</h3>
+                                    <p  class="text-overflow">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam laudantium, et voluptate tempore perferendis corporis saepe dolorem nihil, voluptates sequi blanditiis deleniti natus eos omnis molestias rem! Nesciunt, magni nam.</p>
+                                </a>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3">
+                            <div class="thumbnail">
+                                <div class="caption">
+                                    <a class="conetent-body" href="https://www.naver.com/">
+                                        <img src="http://placehold.it/243x200" alt="thumbnail">
+                                        <h3>Thumbnail label</h3>
+                                        <p>hello</p>
+                                    </a>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="col-sm-6 col-md-3">
+                                <div class="thumbnail">
+                                    <div class="caption">
+                                        <a class="conetent-body" href="https://www.naver.com/">
+                                            <img src="http://placehold.it/243x200" alt="thumbnail">
+                                            <h3>Thumbnail label</h3>
+                                            <p>hello</p>
+                                        </a>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="thumbnail">
+                                        <div class="caption">
+                                            <a class="conetent-body" href="https://www.naver.com/">
+                                                <img src="http://placehold.it/243x200" alt="thumbnail">
+                                                <h3>Thumbnail label</h3>
+                                                <p>hello</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    </div>
+                    </div>
+
+
+
+
+
+            </div>
+
+
+
+
+            <div class="content-header text-left">
+                <h3>게시글</h3>
+            </div>
+    </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <%- include ("./common/head") %>
+    </head>
+ 
+    <body>
+        <div id="wrap">
+            <!------------------- 상단 navbar ------------------->
+            <header>
+                <%- include ("./common/navbar") %>
+            </header>
+
+            <div id="container">
+                <div id="snb">
+                    <h2>회원정보변경</h2>
+                    <ul class="nav nav-pills nav-stacked">                      
+                        <li role="presentation"><a href="#">개인정보 변경</a></li>
+                        <li role="presentation"><a href="#">비밀번호 변경</a></li>
+                        <li role="presentation"><a href="#">내가 쓴 글</a></li>
+                    </ul>
+                </div>
+
+                <div id="content">
+                    <div class="mypage-cont">
+                        <h3>내 시험 일정</h3>
+                        <table class="table table-hover data">
+                            <thead>
+                              <tr>
+                                <th>시험명</th>
+                                <th>시험일</th>
+                                <th>성적발표일</th>
+                                <th>접수확인</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>토익</td>
+                                <td>2020.06.20</td>
+                                <td>2020.08.20</td>
+                                <td><a href="#">링크</a></td>
+                              </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>내 전공 인기 자격증</h3>
+                        <div class="total">
+                            그래프 영역
+                        </div>
+
+
+                    </div><!--//mypage-cont-->
+                    
+                </div>
+
+            </div><!--//container-->
+
+            <footer>
+            </footer>
+
+
+
+        </div><!--//wrap-->
+
+       
+        
+    
+    
+    
+    </body>
+</html>

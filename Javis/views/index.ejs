@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <%- include ("./common/head") %>
+    </head>
+
+    <body>
+        <div id="wrap">
+            <!------------------- 상단 navbar ------------------->
+            <header>
+            <%- include ("./common/navbar") %>
+            </header>
+        
+            <!------------------- 점보트론 ------------------->
+            <div class="jumbotron">
+                <h3>나만의 자격증 비서</h3>
+                <h1>자비스</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, sapiente.</p>
+                <p><a class="btn btn-primary btn-lg" href="#" role="button">지금 시작해보세요!</a></p>
+            </div>
+
+
+            <!------------------- 서치폼 ------------------->
+            <div class="container-fluid">
+                <div class="content-header text-center">
+                    <h3>자격증/시험/전공을 검색해보세요!</h3>
+                </div>
+
+                <form class="form-parent" method="get" action="search">
+                    <div class="form-group">
+                    <input type="text" class="form-control" name="searchKey" placeholder="자격증/시험">
+                    <i class="searchbar-icon"></i>
+                    <button type="submit" class="btn btn-default">검색</button>
+                    </div>
+                </form>
+            </div>
+        
+            <!------------------- 자격증 추천 ------------------->
+            <div class="recommend">
+                <div class="content-header text-center">
+                    <h3>user님에게 필요한 자격증은?</h3>
+                    <div class="recommend-button" href>한국사</div>
+                    <div class="recommend-button" href>정처기</div>
+                </div>
+            </div>
+
+            <!------------------- 시험 일정 ------------------->
+
+            <main>
+                <section>
+                    <div class="content-header text-center">
+                        <h3>다가오는 시험</h3>
+                    </div>
+                    <div class="scroll-wrap">
+                        <ul>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                            <li><a href="#">다가오는 시험 1</a></li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+        
+
+        </div>
+            <!------------------- 푸터 ------------------->
+            <div class="footer">
+                <%- include ("./common/footer") %>
+            </div>
+    </body>
+</html>

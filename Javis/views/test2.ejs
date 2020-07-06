@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <%- include ("./common/head") %>
+    </head>
+ 
+    <body>
+
+        <div id="wrap">
+            <!------------------- 상단 navbar ------------------->
+            <header>
+                <%- include ("./common/navbar") %>
+            </header>
+
+            <!------------------- 회원가입 창-(2) ------------------->
+
+            <div id="container">
+               <div class="join-wrap">
+                    <div class="wrap-header">
+                        <h3>회원가입</h3>
+                        <p>회원가입 시 관심 시험 일정과 전공별 맞춤 자격증/시험을 확인하실 수 있습니다</p>
+                    </div>
+                    
+                    <div class="join-input">
+                        <!-- 추가 정보 -->
+                            <dl>
+                                <dt>자격증</dt>
+                                    <dd>
+                                        <div class="inner-form">
+                                            <div class="inblock select">
+                                                <select>
+                                                    <option>학과선택</option>
+                                                    <option>학과선택</option>
+                                                    <option>학과선택</option>
+                                                    <option>학과선택</option>
+                                                </select>
+                                            </div>
+                                            <div class="inblock search">
+                                                <input id="search" type="text" placeholder="Enter Keywords?">
+                                            </div>
+                                            <!--  -->
+                                            <div class="inblock button">
+                                                <button class="btn" type="button">
+                                                    <!-- <img src="src/img/search.svg" /> -->
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <select>
+                                                <option>학과선택</option>
+                                                <option>학과선택</option>
+                                                <option>학과선택</option>
+                                                <option>학과선택</option>
+                                            </select>
+                                            <input type="text">
+                                        </div>
+
+                                        <div>
+                                            <label for="cbeck1">선택1</label> <input type="checkbox" id="cbeck1">
+                                            <label for="cbeck2">선택2</label> <input type="checkbox" id="cbeck2">
+                                            <label for="cbeck3">선택3</label> <input type="checkbox" id="cbeck3">
+                                            <label for="cbeck4">선택4</label> <input type="checkbox" id="cbeck4">
+                                            <label for="cbeck5">선택5</label> <input type="checkbox" id="cbeck5">
+                                        </div>
+                                    </dd>
+                            </dl>
+
+                            <dl>
+                                <dt>학과</dt>
+                                    <dd>
+                                    
+                                        <div>
+                                            <select>
+                                                <option>선택1</option>
+                                                <option>선택1</option>
+                                            </select>
+                                            <select>
+                                                <option>선택1</option>
+                                                <option>선택1</option>
+                                            </select>
+                                            <select>
+                                                <option>선택1</option>
+                                                <option>선택1</option>
+                                            </select>
+
+                                        </div>
+                                        <div>
+                                            <input type="text">
+                                        </div>
+
+                                    </dd>
+                            </dl>
+
+
+
+                    </div>
+
+               </div>
+
+            </div><!--//container-->
+
+                   <!------------------- 푸터 ------------------->
+                    <div class="footer">
+                        <%- include ("./common/footer") %>
+                    </div>
+
+
+
+        </div><!--//wrap-->
+
+       
+        
+    
+    
+    
+    </body>
+</html>

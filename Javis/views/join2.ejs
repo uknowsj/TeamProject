@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <%- include ("./common/head") %>
+    </head>
+    <script type="text/javascript">
+        var joinInfo = [];//배열선언
+        var certiCategory;
+        var certiSearch;
+        var certiVal;
+        //학과 관련
+        var majorVal1;
+        var majorVal2;
+        var majorVal3;
+        var majorInput; 
+ 
+        
+        $(function(){
+            // $("select .selectBox").on("change",function(){ 이거 왜 안되지?-?
+            $(document).on("change",function(){
+
+                //자격증 관련 
+                certiCategory = $('#certiSel option:selected').val();//자격증 카테고리
+                certiSearch = $('input#search2').val();//자격증 검색 키워드 값
+                certiVal = $('input[name="major"]:checked').val();//자격증 체크박스값
+            
+                //학과 관련
+                majorVal1 = $('#majorSel1 option:selected').val();//전공 대분류
+                majorVal2 = $('#majorSel2 option:selected').val();//전공 중분류
+                majorVal3 = $('#majorSel3 option:selected').val();//전공 소분류(전공이름)
+                majorInput = $('input#majorInput').val();//전공 직접 입력한 값
+
+        });
+    });
+        function submit(){
+            var id="<%=result.user_id%>";
+            var pw="<%=result.user_pw1%>";
+            var nickname="<%=result.user_nickname%>";
+            var major=[{"val1":majorVal1},{"val2":majorVal2},{"val3":majorVal3}];
+
+            $.ajax({
+                url:'/submit',
+                async : true,
+                type: 'post',
+                data : {
+                        id : id,
+                        nickname : nickname,
+                        pw : pw,
+                        major : major,
+                        certi : certiVal
+                    },
+                    dataType: 'json',
+                    success: function(data){ //post 요청 성공시
+                        console.log("보내기 성공");
+                    },
+                    error : function(err){
+                        alert("보내기 실패"+err);
+                    }
+            });
+        }
+        function join(){
+            submit();
+            alert("회원가입 완료!");
+            location.href="/";
+            // 메인페이지로 이동
+        }
+    </script>
+    <body>
+
+        <div id="wrap">
+            <!------------------- 상단 navbar ------------------->
+            <header>
+                <%- include ("./common/navbar") %>
+            </header>
+
+            <!------------------- 회원가입 창-(2) ------------------->
+
+            <div id="container">
+               <div class="join-wrap">
+                    <div class="wrap-header">
+                        <h3>회원가입</h3>
+                        <p>회원가입 시 관심 시험 일정과 전공별 맞춤 자격증/시험을 확인하실 수 있습니다</p>
+                    </div>
+                    <div class="join-input">
+                        <!-- 추가 정보 -->
+                            <dl>
+                                <dt>자격증</dt>
+                                    <dd>
+                                        <div class="inner-form">
+                                            <div class="searchForm">
+                                                <select class="selectBox" id="certiSel">
+                                                    <option>카테고리</option>
+                                                    <option>어학</option>
+                                                    <option>기능사</option>
+                                                    <option>산업기사</option>
+                                                    <option>기사</option>
+                                                    <option>기술사</option>
+                                                </select>
+                                                <input class="search" id="search2" type="text" var="d" placeholder="Enter Keywords?">
+                                                <button class="btn" id="button" type="button">
+                                                    <img src="src/img/search3.svg"/>
+                                                </button>
+                                            </div>
+                                            <div class="labelForm">
+
+                                                        <ul>
+                                                            <li>
+                                                                <input type="radio" name="major" value="0">
+                                                                <label for="major">컴퓨터공학과</label>
+                                                            </li>
+                                                            <li>
+                                                                <input type="radio" name="major" value="1">
+                                                                <label for="major">컴퓨터과학과</label>
+                                                            </li>
+                                                        </ul>
+                                                                
+
+                                            </div>
+                                            <div class="clearFloat"></div>
+
+                                        </div>
+                                    </dd>
+                            </dl>
+
+                            <dl>
+                                <dt>학과</dt>
+                                    <dd>
+
+                                        <div>
+                                            <select id="majorSel1">
+                                                <option>공학</option>
+                                                <option>..</option>
+                                            </select>
+                                            <select id="majorSel2">
+                                                <option>건축</option>
+                                                <option>전기</option>
+                                            </select>
+                                            <select id="majorSel3">
+                                                <option>건축학과</option>
+                                                <option>건축인테리어</option>
+                                            </select>
+
+                                        </div>
+                                        <div>
+                                            <p>*일치하는 학과정보가 없을 시 아래에 직접 입력해주세요</p>
+                                            <input type="text" id="majorInput" placeholder="학과 직접 입력">
+                                        </div>
+
+                                    </dd>
+                            </dl>
+                            <button type="button" class="btn btn-default" onclick="join()">회원가입</button>
+                    </div>
+
+               </div>
+
+            </div><!--//container-->
+
+                   <!------------------- 푸터 ------------------->
+                    <div class="footer">
+                        <%- include ("./common/footer") %>
+                    </div>
+
+
+
+        </div><!--//wrap-->
+
+       
+        
+    
+    
+    
+    </body>
+</html>
