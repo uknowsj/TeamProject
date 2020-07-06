@@ -2,6 +2,16 @@
 <html lang="ko">
     <head>
         <%- include ("./common/head") %>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<link href="src/css/style.css" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('.slider').bxSlider();
+    });
+  </script>
     </head>
 
     <body>
@@ -10,39 +20,59 @@
             <header>
             <%- include ("./common/navbar") %>
             </header>
-        
+        </div>
             <!------------------- 점보트론 ------------------->
-            <div class="jumbotron">
-                <h3>나만의 자격증 비서</h3>
-                <h1>자비스</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, sapiente.</p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">지금 시작해보세요!</a></p>
+            <div class="jumbotron text-center">
+              <div class="jumbo-content">
+                <dl>
+                  <h3>나만의 자격증 비서</h3>
+                </dl>
+                <dl>
+                  <h1>자비스</h1>
+                </dl>
+                <dl>
+                  <p>귀찮은 자격증 관리, 이제 자비스에게 맡겨보세요!</p>
+                </dl>
+                <p><a class="btn btn-small" href="/login" role="button">지금 시작하기</a></p>
+              </div>
             </div>
 
-
+            <div id="wrap">
             <!------------------- 서치폼 ------------------->
-            <div class="container-fluid">
+            <section>
                 <div class="content-header text-center">
                     <h3>자격증/시험/전공을 검색해보세요!</h3>
                 </div>
 
-                <form class="form-parent" method="get" action="search">
-                    <div class="form-group">
-                    <input type="text" class="form-control" name="searchKey" placeholder="자격증/시험">
-                    <i class="searchbar-icon"></i>
-                    <button type="submit" class="btn btn-default">검색</button>
+                <form class="join-input" method="get" action="search">
+                    <div class="searchForm2">
+                    <input type="text" class="search" name="searchKey" placeholder="자격증/시험">
+                    <button type="submit" class="btn">
+                        <img src="src/img/search_index.svg"/>
+                    </button>
                     </div>
                 </form>
-            </div>
-        
+            </section>        
             <!------------------- 자격증 추천 ------------------->
-            <div class="recommend">
+            <section>
                 <div class="content-header text-center">
-                    <h3>user님에게 필요한 자격증은?</h3>
-                    <div class="recommend-button" href>한국사</div>
-                    <div class="recommend-button" href>정처기</div>
+                    <h3>현재 인기 자격증</h3>
                 </div>
-            </div>
+                <div class="tag">
+                    <button type="button" class="buttonTag">한국사</button>
+                    <button type="button" class="buttonTag">정처기</button>
+                    <button type="button" class="buttonTag">인기자격증아무거</button>
+                    <button type="button" class="buttonTag">SQLD</button>
+                    <button type="button" class="buttonTag">정보처리기사</button>
+                    <button type="button" class="buttonTag">정처기</button>
+                    <button type="button" class="buttonTag">정처기</button>
+                </div>
+                <div class="tag-right">
+                    <a href="#">
+                        <p>당신에게 필요한 자격증은?</p>
+                    </a>
+                </div>
+            </section>
 
             <!------------------- 시험 일정 ------------------->
 
@@ -51,44 +81,83 @@
                     <div class="content-header text-center">
                         <h3>다가오는 시험</h3>
                     </div>
-                    <div class="scroll-wrap">
-                        <ul>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                            <li><a href="#">다가오는 시험 1</a></li>
-                        </ul>
+                    <div class="slider">
+                      <div>
+                          <table class="table table-hover data">
+                            <thead>
+                              <tr>
+                                <th>시험명</th>
+                                <th>시험일</th>
+                                <th>성적발표일</th>
+                                <th>접수확인</th>
+                              </tr>
+                            </thead>
+                              <tbody>
+                                  <tr>
+                                    <td>토익</td>
+                                    <td>2020.06.20</td>
+                                    <td>2020.08.20</td>
+                                    <td><a href="#">링크</a></td>
+                                  </tr>
+                                  <tr>
+                                    <td>토익</td>
+                                    <td>2020.06.20</td>
+                                    <td>2020.08.20</td>
+                                    <td><a href="#">링크</a></td>
+                                  </tr>
+                                  <tr>
+                                    <td>토익</td>
+                                    <td>2020.06.20</td>
+                                    <td>2020.08.20</td>
+                                    <td><a href="#">링크</a></td>
+                                  </tr>
+                                  <tr>
+                                    <td>토익</td>
+                                    <td>2020.06.20</td>
+                                    <td>2020.08.20</td>
+                                    <td><a href="#">링크</a></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                      </div>
+                      <div>
+                        <table class="table table-hover data">
+                          <thead>
+                            <tr>
+                              <th>시험명</th>
+                              <th>시험일</th>
+                              <th>성적발표일</th>
+                              <th>접수확인</th>
+                            </tr>
+                          </thead>
+                            <tbody>
+                                <tr>
+                                  <td>토익</td>
+                                  <td>2020.06.20</td>
+                                  <td>2020.08.20</td>
+                                  <td><a href="#">링크</a></td>
+                                </tr>
+                                <tr>
+                                  <td>토익</td>
+                                  <td>2020.06.20</td>
+                                  <td>2020.08.20</td>
+                                  <td><a href="#">링크</a></td>
+                                </tr>
+                                <tr>
+                                  <td>토익</td>
+                                  <td>2020.06.20</td>
+                                  <td>2020.08.20</td>
+                                  <td><a href="#">링크</a></td>
+                                </tr>
+                                <tr>
+                                  <td>토익</td>
+                                  <td>2020.06.20</td>
+                                  <td>2020.08.20</td>
+                                  <td><a href="#">링크</a></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                      </div>
                     </div>
                 </section>
             </main>

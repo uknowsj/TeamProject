@@ -29,6 +29,7 @@
                 majorVal2 = $('#majorSel2 option:selected').val();//전공 중분류
                 majorVal3 = $('#majorSel3 option:selected').val();//전공 소분류(전공이름)
                 majorInput = $('input#majorInput').val();//전공 직접 입력한 값
+                console.log(majorVal1);
 
         });
     });
@@ -36,22 +37,33 @@
             var id="<%=result.user_id%>";
             var pw="<%=result.user_pw1%>";
             var nickname="<%=result.user_nickname%>";
-            var major=[{"val1":majorVal1},{"val2":majorVal2},{"val3":majorVal3}];
+            // var major=[{"val1":majorVal1},
+            // {"val2":majorVal2},
+            // {"val3":majorVal3}];
 
+
+            
+            var content=[{"val1":"hello","val2":"hello2"},
+            {"val1":"good","val2":"good2"},
+            {"val1":"bye","val2":"bye2"}
+            ]
+            console.log(content[1].val2);//=>good2
+            var c2 = JSON.stringify(content);
             $.ajax({
                 url:'/submit',
                 async : true,
                 type: 'post',
+                traditional:true,
                 data : {
                         id : id,
                         nickname : nickname,
                         pw : pw,
-                        major : major,
+                        major : c2,
                         certi : certiVal
                     },
-                    dataType: 'json',
+                    // dataType: 'json',
                     success: function(data){ //post 요청 성공시
-                        console.log("보내기 성공");
+                        console.log(data);
                     },
                     error : function(err){
                         alert("보내기 실패"+err);
@@ -61,7 +73,7 @@
         function join(){
             submit();
             alert("회원가입 완료!");
-            location.href="/";
+            // location.href="/";
             // 메인페이지로 이동
         }
     </script>

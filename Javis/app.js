@@ -16,8 +16,8 @@ app.use(express.static(__dirname+'/')); //view 폴더 경로는 프로젝트 폴
 // app.use(express.static('public'));
 // app.use(static(path.join(__dirname, '/')));
 
-app.use(bodyParser.urlencoded({extended:false})); //url인코딩 안함
-app.use(bodyParser.json());//JSON 타입으로 파싱하게 설정
+app.use(express.urlencoded({extended:false})); //url인코딩 안함
+app.use(express.json());//JSON 타입으로 파싱하게 설정
 
 app.set('port', process.env.PORT || 8080);
 
@@ -28,7 +28,7 @@ app.get('/',function(req,res){
 });
 app.get('/search',function(req,res){
     var request = req.query.searchKey;
-    console.log(request);
+    // console.log(request);
     res.render('search',{request});
 });
 app.get('/mypage',function(req,res){
@@ -38,9 +38,14 @@ app.get('/join',function(req,res){
     res.render('join',{});
 });
 
+//<!------------------- 로그인 ------------------->//
 app.get('/login',function(req,res){
     res.render('login',{});
 });
+app.post('/login',function(req,res){
+    res.send("이 곳에서 로그인정보값을 DB에 저장하시면됩니다.");
+});
+
 
 app.get('/board',function(req,res){
     res.render('board',{});
@@ -53,12 +58,17 @@ app.get('/test1',function(req,res){
 });
 app.post('/join2',function(req,res){
     var result = req.body
-    console.log(result);
+    // console.log(result);
     res.render('join2',{result});
 });
 app.post('/submit',function(req,res){
     var request = req.body;
-    console.log(request);
+    var t = typeof(request.major)
+    // console.log(request);
+    console.log(t);
+
+    // console.log(request.major[val1);
+    res.send(request);
 });
 
 
