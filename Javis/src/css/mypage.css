@@ -1,6 +1,63 @@
-div.nav-content{
-    display:block;
-    width:200px;
-    background-color: blue;
-    border:1px solid red;
+#snb .content-header{
+    margin-top: 10px;
 }
+#snb .content-header h3{
+    margin:0px;
+}
+/*<----------------------------차트 컨테이너---------------------------->*/
+
+.highcharts-figure, .highcharts-data-table table {
+    min-width: 320px; 
+    max-width: auto;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+/* Titles */
+.highcharts-title {
+    position:absolute;
+    overflow:hidden;
+    border:0;
+    width:1px;
+    height:1px;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path:inset(50%);
+    fill: #ffffff;
+    font-size: 1.5em;
+  }
+  text{
+  }
+tspan{
+    fill: #2368a5;
+    color: #2368a5;
+
+    font-size: 20px;
+    stroke-width: 3px;
+    stroke-opacity: 0.7;
+  }

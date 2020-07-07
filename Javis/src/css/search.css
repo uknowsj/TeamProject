@@ -1,0 +1,30 @@
+.media-body{
+    padding:0px;
+}
+.media-body h4{
+    display: inline-block;
+    width:auto;
+    font-weight: bold;
+    margin:0px;
+    margin-bottom:10px;
+}
+.media-body p{
+    display:-webkit-box; 
+    word-wrap:break-word; 
+    -webkit-line-clamp:3; 
+    -webkit-box-orient:vertical; 
+    /* height는 line-height의 배수로 해야 깔끔하게 잘림; */
+    height: 72px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height:24px;
+    text-decoration:none;
+}
+
+.media-body div svg {
+    float: right;
+    fill: #3c80dae1;
+  }
+.media-body div:hover svg {
+    fill: #337ab7;
+}

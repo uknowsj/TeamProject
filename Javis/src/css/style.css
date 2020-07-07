@@ -57,7 +57,7 @@ header nav li{
   margin:0px auto;
   margin-top: 30px;
   margin-bottom: 10px;
-  padding:10px;
+  padding:10px 0px;
   font-size: 1.5em;
 }
 .search{
@@ -68,7 +68,10 @@ header nav li{
   margin:40px auto;
   padding-bottom: 10px;
   font-size: 1.5em;
-  border-bottom:1.5px solid #337ab7;
+  border-bottom:2px solid #337ab7;
+}
+.search-header bold{
+  font-weight: 800;
 }
 .wrap-header{
   margin-bottom:20px;
@@ -132,11 +135,11 @@ font-size:0.8em;
 }
 
 /*container*/
-#container{
+/* #container{
   overflow: hidden;
   clear: both;
   min-height: 680px;
-}
+} */
 /* 왼쪽 콘텐츠 */
 #snb{ 
   width: 20%;
@@ -622,6 +625,7 @@ main{
 
   #snb{
     width: auto;
+    height: auto;
     float:none;
   }
 

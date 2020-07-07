@@ -2,7 +2,33 @@
 <html lang="ko">
     <head>
         <%- include ("./common/head") %>
+        <link href="src/css/search.css" rel="stylesheet">
     </head>
+
+    <script type="text/javascript">
+    
+    //<!------------------- 모달창 ------------------->
+     
+        $(function(){
+            $(".body-top").on("click",function(e){
+
+            $('.modal-body').empty();
+                id = $(this)[0].id; //자격증 pk값
+                console.log(id);
+              $('#myModalLabel').text("모달");//modal창 제목
+              $('.modal-body').append(
+
+                "안녕"
+              );
+              $('#myModal').modal('show');
+            });
+
+        });
+
+
+    </script>
+
+
 
     <body>
         <div id="wrap">
@@ -14,13 +40,13 @@
             <!------------------- 검색결과 ------------------->
 
             <div class="search-header text-left">
-                <h2>'<%-request-%>' 검색결과</h2>
+                <h2><bold>'<%-request-%>'</bold> 검색결과</h2>
             </div>
 
 
             <!------------------- 자격증 검색결과 ------------------->
         
-            <div class=certifiInfo">
+            <section>
                 <div class="content-header text-left">
                     <h3>자격증/시험</h3>
                 </div>
@@ -28,68 +54,31 @@
                 <div class="row">
                     <div class="media-list">
                         <div class="col-sm-6 col-md-3">
-                            <li class="media" >
                             <div class="media-left">
                                 <a href="#">
                                 <img class="media-object" src="http://placehold.it/64x64" alt="certifiThumnail">
                                 </a>
                             </div>
-                            <div class="media-body" style="border:1px solid green">
-                                <h4 class="media-heading">토익</h4>
-                                <p class="text-overflow">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, placeat.</p>
+                            <div class="media-body">
+                                <div>
+                                    <a href="#"><h4 class="body-top" id="1">토익</h4>
+                                    <svg class="body-top" id="1" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
+                                    </svg>
+                                    </a>
+                                </div>
+                                <p>Lorem ipsum dolor sit, amet rwercowerw nsectetur adipisicing elit. Ipsam, ea?</p>
                             </div>
-                            </li>
                         </div>
+                        
 
-                        <div class="col-sm-6 col-md-3">
-                            <li class="media" >
-                            <div class="media-left">
-                                <a href="#">
-                                <img class="media-object" src="http://placehold.it/64x64" alt="certifiThumnail">
-                                </a>
-                            </div>
-                            <div class="media-body" style="border:1px solid green">
-                                <h4 class="media-heading">토익</h4>
-                                <p class="text-overflow">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, placeat.</p>
-                            </div>
-                            </li>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3">
-                            <li class="media" >
-                            <div class="media-left">
-                                <a href="#">
-                                <img class="media-object" src="http://placehold.it/64x64" alt="certifiThumnail">
-                                </a>
-                            </div>
-                            <div class="media-body" style="border:1px solid green">
-                                <h4 class="media-heading">토익</h4>
-                                <p class="text-overflow">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, placeat.</p>
-                            </div>
-                            </li>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3">
-                            <li class="media" >
-                            <div class="media-left">
-                                <a href="#">
-                                <img class="media-object" src="http://placehold.it/64x64" alt="certifiThumnail">
-                                </a>
-                            </div>
-                            <div class="media-body" style="border:1px solid green">
-                                <h4 class="media-heading">토익</h4>
-                                <p class="text-overflow">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, placeat.</p>
-                            </div>
-                            </li>
-                        </div>
-                    
-                    
                     
                     </div>
                 </div>
-        </div>
+            </section>
             <!------------------- 클래스 검색결과 ------------------->
-            <div class="classInfo">
+            <section>
+
                 <div class="content-header text-left">
                     <h3>클래스 검색결과</h3>
                 </div>
@@ -102,6 +91,8 @@
                                     <h3>Thumbnail label</h3>
                                     <p  class="text-overflow">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam laudantium, et voluptate tempore perferendis corporis saepe dolorem nihil, voluptates sequi blanditiis deleniti natus eos omnis molestias rem! Nesciunt, magni nam.</p>
                                 </a>
+
+
                             </div>
                         </div>
                         </div>
@@ -141,14 +132,28 @@
                                     </div>
                                     </div>
                     </div>
+            </section>
 
+        </div><!-- wrap -->
 
+                  <!------------------- 모달창 ------------------->
 
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                            </div>
+                            <div class="modal-body">
 
-
-            </div>
-
-
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
 
 
             <div class="content-header text-left">
