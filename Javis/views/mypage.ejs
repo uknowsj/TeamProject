@@ -3,9 +3,8 @@
     <head>
         <%- include ("./common/head") %>
         <link href="src/css/mypage.css" rel="stylesheet">
-        <script>
-            var certiname="정보처리기사";
-            var certiname2="한국사";
+        <script type="text/javascript">
+ 
         </script>
     </head>
  
@@ -37,7 +36,7 @@
                 <div id="content">
                     <div class="mypage-cont">
                         <div class="content-header">
-                            <h3>내 시험 일정</h3>
+                            <h3><bold><%=nickname%></bold>님 시험 일정</h3>
                         </div>
                         <table class="table table-hover data">
                             <thead>
@@ -59,7 +58,7 @@
                         </table>
 
                         <div class="content-header">
-                            <h3>내 전공 인기 자격증</h3>
+                            <h3><bold><%=nickname%></bold>님 전공 인기 자격증</h3>
                         </div>
                         <div class="total">
                             <figure class="highcharts-figure">
@@ -68,8 +67,36 @@
                                  *나와 전공이 같은 사람들이 보유하고있는 자격증입니다. 
                                 </p>
                               </figure>
-                
+
                               <script>
+                                //id정보 받아서 major 찾기
+                                window.certi=[];
+                                  $(function(){
+                                    $.ajax({
+                                        url:'/userInfo',
+                                        async : false,
+                                        type: 'post',
+                                            dataType: 'json',
+                                            success: function(data){ //post 요청 성공시
+                                              var length=data.length;
+                                              if(length>6){
+                                                length=6;
+                                              }
+                                                for(var i=0;i<length;i++){
+                                                    var arr ={};
+                                                    arr.name=data[i].certifi;
+                                                    arr.value=data[i].cnt;
+                                                    arr.colorValue=i+1;
+                                                    certi.push(arr);
+                                                }
+                                                console.log(certi);
+                                            },
+                                            error : function(err){
+                                                alert("보내기 실패"+err);
+                                            }
+                                    });
+                              
+
                                 Highcharts.chart('chart-container', {
                       colorAxis: {
                         minColor: '#FFFFFF',
@@ -78,40 +105,13 @@
                       series: [{
                         type: 'treemap',
                         layoutAlgorithm: 'squarified',
-                        data: [{
-                          name: certiname,
-                          value: 9,
-                          colorValue: 1
-                        }, {
-                          name: certiname2,
-                          value: 6,
-                          colorValue: 2
-                        }, {
-                          name: 'C',
-                          value: 4,
-                          colorValue: 3
-                        }, {
-                          name: 'D',
-                          value: 3,
-                          colorValue: 4
-                        }, {
-                          name: 'E',
-                          value: 2,
-                          colorValue: 5
-                        }, {
-                          name: 'F',
-                          value: 2,
-                          colorValue: 6
-                        }, {
-                          name: 'G',
-                          value: 1,
-                          colorValue: 7
-                        }]
+                        data: certi
                       }],
                       title: {
                         text: 'Highcharts Treemap'
                       }
                     });
+                  });
                             </script>
 
 

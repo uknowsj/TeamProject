@@ -12,6 +12,7 @@
       $('.slider').bxSlider();
     });
   </script>
+
     </head>
 
     <body>
@@ -24,16 +25,37 @@
             <!------------------- 점보트론 ------------------->
             <div class="jumbotron text-center">
               <div class="jumbo-content">
-                <dl>
-                  <h3>나만의 자격증 비서</h3>
-                </dl>
-                <dl>
-                  <h1>자비스</h1>
-                </dl>
-                <dl>
-                  <p>귀찮은 자격증 관리, 이제 자비스에게 맡겨보세요!</p>
-                </dl>
-                <p><a class="btn btn-small" href="/login" role="button">지금 시작하기</a></p>
+                <% if( !nickname ) { %><!-- 로그인안된 상태 -->
+                  <dl>
+                    <h3>나만의 자격증 비서</h3>
+                  </dl>
+                  <dl>
+                    <h1>자비스</h1>
+                  </dl>
+                  <dl>
+                    <p>귀찮은 자격증 관리, 이제 자비스에게 맡겨보세요!</p>
+                  </dl>
+                  <p><a class="btn btn-small" href="/login" role="button">지금 시작하기</a></p>
+                <% } else { %> <!-- 로그인된 상태 -->          
+                  <dl>
+                    <h3>나만의 자격증 비서</h3>
+                  </dl>
+                  <dl>
+                    <h1>자비스</h1>
+                  </dl>
+                  <dl>
+                    <h4>안녕하세요 <%-nickname%>님:)</h4>
+                  </dl>
+                <% } %>
+
+
+
+
+
+
+
+                
+
               </div>
             </div>
 
@@ -120,44 +142,38 @@
                                 </tbody>
                               </table>
                       </div>
-                      <div>
-                        <table class="table table-hover data">
-                          <thead>
-                            <tr>
-                              <th>시험명</th>
-                              <th>시험일</th>
-                              <th>성적발표일</th>
-                              <th>접수확인</th>
-                            </tr>
-                          </thead>
-                            <tbody>
-                                <tr>
-                                  <td>토익</td>
-                                  <td>2020.06.20</td>
-                                  <td>2020.08.20</td>
-                                  <td><a href="#">링크</a></td>
-                                </tr>
-                                <tr>
-                                  <td>토익</td>
-                                  <td>2020.06.20</td>
-                                  <td>2020.08.20</td>
-                                  <td><a href="#">링크</a></td>
-                                </tr>
-                                <tr>
-                                  <td>토익</td>
-                                  <td>2020.06.20</td>
-                                  <td>2020.08.20</td>
-                                  <td><a href="#">링크</a></td>
-                                </tr>
-                                <tr>
-                                  <td>토익</td>
-                                  <td>2020.06.20</td>
-                                  <td>2020.08.20</td>
-                                  <td><a href="#">링크</a></td>
-                                </tr>
-                              </tbody>
-                            </table>
-                      </div>
+
+                      <div>두번째장</div>
+
+<!-- 
+                      <script type="text/javascript">
+                        $(function(){
+                          $.ajax({
+                            url:'/search',
+                            async : true,
+                            type: 'get',
+                            data : {
+                                    cafe_code : cafe_code,//code라는 keyword 값으로 식당코드번호 보냄
+                        },
+                        dataType: 'json',
+                        success: function(data){ //post 요청 성공시
+                           console.log("김밥천국 식당코드 보내기 성공");
+                        },
+                        error : function(err){
+                            alert("보내기 실패"+err);
+                        }
+                          });
+                        });
+                      </script>
+
+ -->
+
+
+
+
+
+
+
                     </div>
                 </section>
             </main>

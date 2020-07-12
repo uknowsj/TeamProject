@@ -8,7 +8,7 @@
     margin:0px;
     margin-bottom:10px;
 }
-.media-body p{
+p{
     display:-webkit-box; 
     word-wrap:break-word; 
     -webkit-line-clamp:3; 

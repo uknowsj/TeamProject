@@ -13,67 +13,197 @@
         var majorVal2;
         var majorVal3;
         var majorInput; 
- 
-        
+        var majorNo=1;
+        //major데이터가져오기
+        $(function(){
+            var majorData=[];
+            $.ajax({
+                url:'/majorInfoGet',
+                async : true,
+                type: 'get',
+                dataType: 'json',
+                success: function(data){ 
+                   var arr={};
+                    for(var i=0; i<data.length;i++){
+                       
+                       $("#majorSel1").append(
+                           '<option id='+data[i].no+'>'+ data[i].large_major+'</option>'
+                       )
+                       $("#majorSel2").append(
+                        '<option id='+data[i].no+'>'+ data[i].medium_major+'</option>'
+                       )
+                       $("#majorSel3").append(
+                        '<option id='+data[i].no+'>'+ data[i].small_major+'</option>'
+                       )
+                   }
+                },
+                error : function(err){
+                    alert("보내기 실패"+err);
+                }
+
+            });
+
+            
+        });
+
+
+        function certiInfoGet(certiCategory){
+            
+            $.ajax({
+                url:'/certiInfoGet',
+                async : true,
+                type: 'get',
+                data:{
+                    carte:certiCategory
+                },
+                dataType: 'json',
+                success: function(data){ 
+                   var arr={};
+                   $("#checkbox-content").empty();
+                    for(var i=0;i<data.length;i++){
+                        $("#checkbox-content").append(
+                        '<li>'+
+                            '<input type="checkbox" name="certi" id="'+data[0].no+'"value="'+data[i].name+'">'+
+                            '<label for="certi">'+data[i].name+'</label>'+
+                        '</li>'
+                    );
+                    }
+                },
+                error : function(err){
+                    alert("보내기 실패"+err);
+                }
+            });
+            $.ajax({
+                url:'/certiInfoGet',
+                async : true,
+                type: 'get',
+                data:{
+                    carte:certiCategory
+                },
+                dataType: 'json',
+                success: function(data){ 
+                   var arr={};
+                   $("#checkbox-content").empty();
+                    for(var i=0;i<data.length;i++){
+                        $("#checkbox-content").append(
+                        '<li>'+
+                            '<input type="checkbox" name="certi" id="'+data[0].no+'"value="'+data[i].name+'">'+
+                            '<label for="certi">'+data[i].name+'</label>'+
+                        '</li>'
+                    );
+                    }
+                },
+                error : function(err){
+                    alert("보내기 실패"+err);
+                }
+            });
+        };
+
+
+
         $(function(){
             // $("select .selectBox").on("change",function(){ 이거 왜 안되지?-?
             $(document).on("change",function(){
 
                 //자격증 관련 
-                certiCategory = $('#certiSel option:selected').val();//자격증 카테고리
+                var checkNum = $('input:checkbox[name=certi]:checked').length;//체크 개수
+
+                certiCategory = $("#certiSel option:selected").val();//자격증 카테고리
+                
                 certiSearch = $('input#search2').val();//자격증 검색 키워드 값
-                certiVal = $('input[name="major"]:checked').val();//자격증 체크박스값
-            
+                certiInfoGet(certiCategory)
+                
+                // console.log(certiCategory);
+                
+
+
+
+
                 //학과 관련
                 majorVal1 = $('#majorSel1 option:selected').val();//전공 대분류
                 majorVal2 = $('#majorSel2 option:selected').val();//전공 중분류
                 majorVal3 = $('#majorSel3 option:selected').val();//전공 소분류(전공이름)
                 majorInput = $('input#majorInput').val();//전공 직접 입력한 값
-                console.log(majorVal1);
 
+
+                majorNo = $('#majorSel3 option:selected').attr('id');
+            
+                //majorval3선택시
+                if(majorVal3!="소분류"){
+                    $("#majorInput").val(majorVal3); 
+                }
+
+                if($("input:checkbox[name=certi]").is(":checked") == true) {
+                    $("#certiSelec").empty();
+                    $("#certiSelec").append("선택내용  |  ");
+
+                    
+                    $("input[name=certi]:checked").each(function() {
+                        var test = $(this).val(); 
+                        $("#certiSelec").append(test+' ');
+                    })
+                    if(checkNum>=3){
+                        alert("3개만");
+                    }
+                }
+                // console.log($("#certiSelec").text());
         });
     });
         function submit(){
             var id="<%=result.user_id%>";
             var pw="<%=result.user_pw1%>";
             var nickname="<%=result.user_nickname%>";
-            // var major=[{"val1":majorVal1},
-            // {"val2":majorVal2},
-            // {"val3":majorVal3}];
-
-
-            
-            var content=[{"val1":"hello","val2":"hello2"},
-            {"val1":"good","val2":"good2"},
-            {"val1":"bye","val2":"bye2"}
-            ]
-            console.log(content[1].val2);//=>good2
-            var c2 = JSON.stringify(content);
+            var arr=[];
+            $("input[name=certi]:checked").each(function() {
+                        var test = $(this).val();
+                        // console.log(test); 
+                        arr.push(test);
+                    })
+                    jQuery.ajaxSettings.traditional=true;
             $.ajax({
                 url:'/submit',
-                async : true,
+                async : false,
                 type: 'post',
-                traditional:true,
                 data : {
-                        id : id,
-                        nickname : nickname,
-                        pw : pw,
-                        major : c2,
-                        certi : certiVal
+                        "id" : id,
+                        "nickname" : nickname,
+                        "pw" : pw,
+                        "majorNo" : majorNo,
+                        "input" : majorInput,
+                        "certi1":arr
                     },
-                    // dataType: 'json',
+                    dataType: 'json',
                     success: function(data){ //post 요청 성공시
-                        console.log(data);
+                        console.log("보내기 성공");
                     },
                     error : function(err){
                         alert("보내기 실패"+err);
                     }
             });
+            // for(var i=0;i<arr.length;i++){
+
+                $.ajax({
+                    url:'/submitCerti',
+                    async : false,
+                    type: 'post',
+                    data : {
+                        "id" : id,
+                        "certi1":arr
+                    },
+                    dataType: 'json',
+                    success: function(data){ //post 요청 성공시
+                        console.log("보내기 성공");
+                    },
+                    error : function(err){
+                        alert("보내기 실패"+err);
+                    }
+                });
+            // }
         }
         function join(){
             submit();
             alert("회원가입 완료!");
-            // location.href="/";
+            location.href="/";
             // 메인페이지로 이동
         }
     </script>
@@ -95,6 +225,29 @@
                     </div>
                     <div class="join-input">
                         <!-- 추가 정보 -->
+                        <dl>
+                            <dt>학과</dt>
+                                <dd>
+
+                                    <div>
+                                        <select id="majorSel1">
+                                            <option>대분류</option>
+                                        </select>
+                                        <select id="majorSel2">
+                                            <option>중분류</option>
+                                        </select>
+                                        <select id="majorSel3">
+                                            <option id="999">소분류</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <!-- majorSel3선택시 자동 input입력 -->
+                                        <p>*일치하는 학과정보가 없을 시 아래에 직접 입력해주세요</p>
+                                        <input type="text" id="majorInput" placeholder="학과 직접 입력">
+                                    </div>
+                                    
+                                </dd>
+                        </dl>
                             <dl>
                                 <dt>자격증</dt>
                                     <dd>
@@ -114,16 +267,8 @@
                                                 </button>
                                             </div>
                                             <div class="labelForm">
+                                                        <ul id="checkbox-content">
 
-                                                        <ul>
-                                                            <li>
-                                                                <input type="radio" name="major" value="0">
-                                                                <label for="major">컴퓨터공학과</label>
-                                                            </li>
-                                                            <li>
-                                                                <input type="radio" name="major" value="1">
-                                                                <label for="major">컴퓨터과학과</label>
-                                                            </li>
                                                         </ul>
                                                                 
 
@@ -133,33 +278,10 @@
                                         </div>
                                     </dd>
                             </dl>
-
                             <dl>
-                                <dt>학과</dt>
-                                    <dd>
-
-                                        <div>
-                                            <select id="majorSel1">
-                                                <option>공학</option>
-                                                <option>..</option>
-                                            </select>
-                                            <select id="majorSel2">
-                                                <option>건축</option>
-                                                <option>전기</option>
-                                            </select>
-                                            <select id="majorSel3">
-                                                <option>건축학과</option>
-                                                <option>건축인테리어</option>
-                                            </select>
-
-                                        </div>
-                                        <div>
-                                            <p>*일치하는 학과정보가 없을 시 아래에 직접 입력해주세요</p>
-                                            <input type="text" id="majorInput" placeholder="학과 직접 입력">
-                                        </div>
-
-                                    </dd>
+                                <dt id="certiSelec" style="font-size: 16px;"></dt>
                             </dl>
+                            
                             <button type="button" class="btn btn-default" onclick="join()">회원가입</button>
                     </div>
 
@@ -168,9 +290,9 @@
             </div><!--//container-->
 
                    <!------------------- 푸터 ------------------->
-                    <div class="footer">
+                    <!-- <div class="footer">
                         <%- include ("./common/footer") %>
-                    </div>
+                    </div> -->
 
 
 

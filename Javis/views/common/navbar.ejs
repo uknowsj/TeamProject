@@ -22,11 +22,36 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <!-- <li><a href="testInfo">자격증/시험 정보</a></li> -->
-                <li><a href="board">게시판</a></li>
-                <li><a href="join">회원가입</a></li>
-                <li><a href="login">로그인</a></li>
+                
+                <% if( !nickname ) { %><!-- 로그인안된 상태 -->
+                    <li><a href="board">게시판</a></li>
+                    <li><a href="join">회원가입</a></li>
+                    <li><a href="login">로그인</a></li>
+                  <% } else { %> <!-- 로그인된 상태 -->      
+                    <li><a href="board">게시판</a></li>
+                    <li><a id="mypage" href="#">마이페이지</a></li>
+                    <li><a href="logout">로그아웃</a></li>
+                  <% } %>
             </ul>
     
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+
+<script type="text/javascript">
+    $(function(){
+        $("#mypage").click(function(){
+            var form = document.createElement('form');
+                var objs;
+                objs = document.createElement('input');
+                objs.setAttribute('type', 'hidden');
+                // objs.setAttribute('name', 'name');
+                // objs.setAttribute('value', value);
+                // form.appendChild(objs);
+                form.setAttribute('method', 'post');
+                form.setAttribute('action', "/mypage");
+                document.body.appendChild(form);
+                form.submit();
+        });
+    });
+</script>
