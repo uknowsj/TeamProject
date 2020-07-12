@@ -36,7 +36,7 @@ var connection = mysql.createConnection({
     user     : 'root',
     password : '0000',
     database : 'project',
-    multipleStatements: true//다중쿼리
+    multipleStatements: true
 });
     
 connection.connect();
@@ -103,8 +103,7 @@ app.get('/login', (req, res) => {
 
 
 
-///////////////////////////////////////////////////////////////////// 
-
+/////////////////////////// 메인화면 ///////////////////////////////
 app.get('/',function(req,res){
     const sess = req.session; // 세션 객체에 접근
     res.render('index', {
@@ -112,10 +111,34 @@ app.get('/',function(req,res){
     });
 });
 
+//다가오는 시험 데이터
+app.get('/getTestInfo',function(req,res){
+    const sess = req.session; // 세션 객체에 접근
+    var request = req.query.searchKey;
+    //현재날짜 기준 4개월 이내 시험 정보만 불러오기
+    var sql = 'SELECT * FROM vw_testInfo WHERE DATEDIFF(doc_d_day,NOW())<=120 AND DATEDIFF(doc_d_day,NOW())>=0';
+    connection.query(sql, function (error, results, fields) {
+        if (error) {
+            console.log(error);
+        }
+        res.json(results);
+    });
+});
+
+
+
+/////////////////////////// 검색창 /////////////////////////////////
 app.get('/search',function(req,res){
     const sess = req.session; // 세션 객체에 접근
     var request = req.query.searchKey;
-    var sql = 'SELECT name, type from certificate_list WHERE name LIKE "%' + request+ '%";';
+    var sql;
+    if(typeof request == "undefined" || request == null || request == ""){
+        sql = 'SELECT no, name, type from certificate_list WHERE name="..";';
+        //아무것도 입력 안하고 검색
+    }
+    else{
+        sql = 'SELECT no, name, type from certificate_list WHERE name LIKE "%' + request+ '%";';
+    }
     connection.query(sql, function (error, results, fields) {
         if (error) {
             console.log(error);
@@ -127,18 +150,56 @@ app.get('/search',function(req,res){
         });
 });
 
-
-
-app.get('/board',function(req,res){
+app.get('/getSearchedCerti',function(req,res){
     const sess = req.session; // 세션 객체에 접근
-    res.render('board', {
+    var request = req.query.certi_no;
+    var sql;
+
+    sql = 'SELECT * from vw_searchedCerti where certi_no='+request;
+    
+    connection.query(sql, function (error, results, fields) {
+        if (error) {
+            console.log(error);
+        }
+        res.json(results);
+        });
+});
+//체크한 시험 추가하기 
+app.get('/addCertiTest',function(req,res){
+    const sess = req.session; // 세션 객체에 접근
+    var data = req.query;
+    var certi_no = data.certi_no;
+    var time = data.time;
+
+    connection.query('INSERT INTO user_certitest VALUES(NULL,"'+userId+'",'+certi_no+','+time+')', function (error, results, fields) {
+        if (error) {
+            console.log(error);
+        }
+        res.json(results);
+    });
+});
+/////////////////////////// 마이페이지 /////////////////////////////////
+app.post('/mypage',function(req,res){
+    const sess = req.session; // 세션 객체에 접근
+    res.render('mypage',{
+        user_id: sess.hasOwnProperty('user_uid') ? users2[sess.user_uid]['user_id'] : '',
         nickname: sess.hasOwnProperty('user_uid') ? users2[sess.user_uid]['user_nickname'] : ''
     });
 });
-
+//내 시험 정보
+app.post('/getCertiTestInfo',function(req,res){
+    const sess = req.session; // 세션 객체에 접근
+    connection.query('SELECT * FROM user_certitest uc JOIN vw_testinfo vw ON (uc.certi_no = vw.certificate_list_no) AND (uc.time = vw.time) WHERE id="'+userId+'"', function (error, results, fields) {
+        if (error) {
+            console.log(error);
+        }
+        res.json(results);
+    });
+});
+//내 전공 인기 자격증 정보
 app.post('/userInfo',function(req,res){
     const sess = req.session; // 세션 객체에 접근
-    var sql='SELECT certifi,COUNT(certifi) as cnt FROM certiView WHERE medium_major=(SELECT medium_major FROM major JOIN user_info ON user_info.major=major.no WHERE user_info.id="'+userId+'")'+'GROUP BY (certifi)';
+    var sql='SELECT certifi,COUNT(certifi) as cnt FROM vw_certi WHERE medium_major=(SELECT medium_major FROM major JOIN user_info ON user_info.major=major.no WHERE user_info.id="'+userId+'")'+'GROUP BY (certifi)';
     connection.query(sql, function (error, results, fields) {
         if (error) {
             console.log(error);
@@ -147,30 +208,34 @@ app.post('/userInfo',function(req,res){
     });
 });
 
-app.post('/mypage',function(req,res){
-    const sess = req.session; // 세션 객체에 접근
-    res.render('mypage',{
-        user_id: sess.hasOwnProperty('user_uid') ? users2[sess.user_uid]['user_id'] : '',
-        nickname: sess.hasOwnProperty('user_uid') ? users2[sess.user_uid]['user_nickname'] : ''
-    });
-});
 
 
 
+/////////////////////////// 회원가입 /////////////////////////////////
 app.get('/join',function(req,res){
     const sess = req.session; // 세션 객체에 접근
     res.render('join', {nickname: sess.hasOwnProperty('user_uid') ? users2[sess.user_uid]['user_nickname'] : ''});
 });
+app.post('/checkDuplicate',function(req,res){
+    const sess = req.session; // 세션 객체에 접근
+    connection.query('SELECT * FROM user_info', function (error, results, fields) {
+        if (error) {
+            console.log(error);
+        }
+    res.json(results);
+    });
+});
+
+//두번째 페이지
 app.post('/join2',function(req,res){
     const sess = req.session; // 세션 객체에 접근
     var result = req.body
-    // console.log(result);
     res.render('join2',{
         nickname: sess.hasOwnProperty('user_uid') ? users2[sess.user_uid]['user_nickname'] : '',
         result
     });
 });
-
+//전공 데이터 불러오기 
 app.get('/majorInfoGet',function(req,res){
     const sess = req.session; // 세션 객체에 접근
     connection.query('SELECT * FROM major', function (error, results, fields) {
@@ -178,10 +243,9 @@ app.get('/majorInfoGet',function(req,res){
             console.log(error);
         }
     res.json(results);
-
-        //현재 user 테이블 정보 가져와서 array에 객체로 저장하여 users2에 객체배열로 저장
     });
 });
+//자격증 데이터 불러오기 
 app.get('/certiInfoGet',function(req,res){
     var carte = req.query.carte;
     if(carte=="카테고리"){
@@ -193,11 +257,9 @@ app.get('/certiInfoGet',function(req,res){
             console.log(error);
         }
     res.json(results);
-
-        //현재 user 테이블 정보 가져와서 array에 객체로 저장하여 users2에 객체배열로 저장
     });
 });
-
+//회원가입 폼 제출 
 app.post('/submit',function(req,res){
     var user = req.body;
     var id = user.id;
@@ -217,50 +279,34 @@ app.post('/submit',function(req,res){
         res.json(results);
         });
     });
+//회원가입 폼 제출 - 유저자격증 정보는 user_certi_info 테이블에 저장
+app.post('/submitCerti',function(req,res){
+    var user = req.body;
+    var id = user.id;
+    var certi1 = user.certi1[0];
+    var certi2 = user.certi1[1];
+    var certi3 = user.certi1[2];
 
-
-
-
-    app.post('/submitCerti',function(req,res){
-        var user = req.body;
-        var id = user.id;
-        var certi1 = user.certi1[0];
-        var certi2 = user.certi1[1];
-        var certi3 = user.certi1[2];
-
-
-        console.log(certi1);
-        console.log(certi2);
-        console.log(certi3);
-
-        var query = 'INSERT INTO user_certi_info VALUES ("'+id+'","'+certi1+'");'+
-                    'INSERT INTO user_certi_info VALUES ("'+id+'","'+certi2+'");'+
-                    'INSERT INTO user_certi_info VALUES ("'+id+'","'+certi3+'");';
-        connection.query(query, function (error, results, fields) {
-            if (error) {
-                console.log(error);
-            }
-            res.json(results);
-            });
-        // });
-        // connection.query(sql2, function (error, results, fields) {});
-        // connection.query(sql3, function (error, results, fields) {});
-    });
-    
-    
-    
-        app.get('/majorInfoGet',function(req,res){
-            const sess = req.session; // 세션 객체에 접근
-            connection.query('SELECT * FROM major', function (error, results, fields) {
-                if (error) {
-                    console.log(error);
-                }
-            res.json(results);
-    
-                //현재 user 테이블 정보 가져와서 array에 객체로 저장하여 users2에 객체배열로 저장
-            });
+    var query = 'INSERT INTO user_certi_info VALUES ("'+id+'","'+certi1+'");'+
+                'INSERT INTO user_certi_info VALUES ("'+id+'","'+certi2+'");'+
+                'INSERT INTO user_certi_info VALUES ("'+id+'","'+certi3+'");';
+    connection.query(query, function (error, results, fields) {
+        if (error) {
+            console.log(error);
+        }
+        res.json(results);
         });
-    
+
+});
+     
+/////////////////////////// 기타 /////////////////////////////////
+//게시판(페이지만 띄어놓았습니다)
+app.get('/board',function(req,res){
+    const sess = req.session; // 세션 객체에 접근
+    res.render('board', {
+        nickname: sess.hasOwnProperty('user_uid') ? users2[sess.user_uid]['user_nickname'] : ''
+    });
+});
 
 
 http.createServer(app).listen(app.get('port'),function(){

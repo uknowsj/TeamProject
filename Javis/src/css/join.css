@@ -1,0 +1,27 @@
+#id_button{
+    position: relative;
+    width:30%;
+    height: 40px;
+    margin: 0;
+    padding:0px;
+    border:none;
+    border-radius: 0px;
+}
+#user_id{
+    margin: 0;
+    width: 70%;
+    float: left;
+    vertical-align: middle;
+    border:none;
+    height: 38px;
+}
+#id{
+    border: 1px solid #337ab7;
+    border-right:none;
+    width: 100%;
+    /* padding: 3px; */
+    box-sizing: border-box;
+    border-radius: 3px;
+    height: 41px;
+}
+

@@ -3,8 +3,31 @@
     <head>
         <%- include ("./common/head") %>
         <link href="src/css/mypage.css" rel="stylesheet">
+
         <script type="text/javascript">
- 
+          //유저 시험정보 가져오기
+          $(function(){
+            $.ajax({
+              url:'/getCertiTestInfo',
+              method:'post',
+              async:true,
+              dataType:'json',
+              success:function(res){
+                  for(var i=0; i<res.length;i++){
+                      $('tbody').append(
+                        '<tr>'+
+                        '<td>'+res[i].time+'</td>'+
+                        '<td>'+res[i].NAME+'</td>'+
+                        '<td>'+res[i].doc_d_day+'</td>'+
+                        '<td>'+res[i].doc_apply_start+'</td>'+
+                        '<td>'+res[i].doc_result_release+'</td>'+
+                      '</tr>'
+                      )
+                  }
+              },
+              error:function(err){console.log("getCertiTestInfo Ajax ERR",err);}
+            });
+          });
         </script>
     </head>
  
@@ -41,19 +64,15 @@
                         <table class="table table-hover data">
                             <thead>
                               <tr>
+                                <th>회차</th>
                                 <th>시험명</th>
-                                <th>시험일</th>
-                                <th>성적발표일</th>
-                                <th>접수확인</th>
+                                <th>시험일(필기)</th>
+                                <th>시험접수일(필기)</th>
+                                <th>성적발표일(필기)</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>토익</td>
-                                <td>2020.06.20</td>
-                                <td>2020.08.20</td>
-                                <td><a href="#">링크</a></td>
-                              </tr>
+                              <!-- 유저시험정보 추가 -->
                             </tbody>
                         </table>
 

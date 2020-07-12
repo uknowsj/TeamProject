@@ -73,30 +73,7 @@
                     alert("보내기 실패"+err);
                 }
             });
-            $.ajax({
-                url:'/certiInfoGet',
-                async : true,
-                type: 'get',
-                data:{
-                    carte:certiCategory
-                },
-                dataType: 'json',
-                success: function(data){ 
-                   var arr={};
-                   $("#checkbox-content").empty();
-                    for(var i=0;i<data.length;i++){
-                        $("#checkbox-content").append(
-                        '<li>'+
-                            '<input type="checkbox" name="certi" id="'+data[0].no+'"value="'+data[i].name+'">'+
-                            '<label for="certi">'+data[i].name+'</label>'+
-                        '</li>'
-                    );
-                    }
-                },
-                error : function(err){
-                    alert("보내기 실패"+err);
-                }
-            });
+
         };
 
 
@@ -105,13 +82,37 @@
             // $("select .selectBox").on("change",function(){ 이거 왜 안되지?-?
             $(document).on("change",function(){
 
+                certiCategory = $("#certiSel option:selected").val();//자격증 카테고리
+
+                $(".selectBox").on("change",function(){
                 //자격증 관련 
-                var checkNum = $('input:checkbox[name=certi]:checked').length;//체크 개수
 
                 certiCategory = $("#certiSel option:selected").val();//자격증 카테고리
                 
                 certiSearch = $('input#search2').val();//자격증 검색 키워드 값
                 certiInfoGet(certiCategory)
+
+                });
+                if($("input:checkbox[name=certi]").is(":checked") == true) {
+                    var checkNum = $('input:checkbox[name=certi]:checked').length;//체크 개수
+                    if(checkNum>3){
+                        alert("3개만 선택해주세요!");
+                    }
+                    else{
+                    $("#certiSelec").empty();
+                    $("#certiSelec").append("선택내용  |  ");
+
+                    
+                    $("input[name=certi]:checked").each(function() {
+                        var test = $(this).val(); 
+                        $("#certiSelec").append(test+' ');
+                    })
+                }
+                }
+                // if(certiCategory!="카테고리"){
+
+                // };
+
                 
                 // console.log(certiCategory);
                 
@@ -133,19 +134,7 @@
                     $("#majorInput").val(majorVal3); 
                 }
 
-                if($("input:checkbox[name=certi]").is(":checked") == true) {
-                    $("#certiSelec").empty();
-                    $("#certiSelec").append("선택내용  |  ");
 
-                    
-                    $("input[name=certi]:checked").each(function() {
-                        var test = $(this).val(); 
-                        $("#certiSelec").append(test+' ');
-                    })
-                    if(checkNum>=3){
-                        alert("3개만");
-                    }
-                }
                 // console.log($("#certiSelec").text());
         });
     });
@@ -253,7 +242,7 @@
                                     <dd>
                                         <div class="inner-form">
                                             <div class="searchForm">
-                                                <select class="selectBox" id="certiSel">
+                                                <select class="selectBox" name="selectBox" id="certiSel">
                                                     <option>카테고리</option>
                                                     <option>어학</option>
                                                     <option>기능사</option>

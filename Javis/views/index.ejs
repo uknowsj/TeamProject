@@ -7,12 +7,85 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+  
   <script>
     $(document).ready(function(){
-      $('.slider').bxSlider();
+      // $('.slider').bxSlider();
     });
   </script>
+  
+  <script>
+  $(function(){
+    $.ajax({
+      url:'/getTestInfo',
+      async:true,
+      method:'get',
+      dataType:'json',
+      success:function(res){
+        var length = res.length;
+        var quo = parseInt(length/10);
+        var rem = length%10;
+        var rem_page = rem?1:0;
 
+        for(var i=0; i<quo+rem_page;i++){
+          $(".slider").append(
+            '<div id='+i+'>'+
+              '</div>'
+          )
+          $('#'+i).append(
+              '<table class="table table-hover data" id=table'+i+'>'+
+                  '<thead>'+
+                    '<tr>'+
+                      '<th>회차</th>'+
+                      '<th>시험명</th>'+
+                      '<th>시험일(필기)</th>'+
+                      '<th>시험접수일(필기)</th>'+
+                      '<th>성적발표일(필기)</th>'+
+                    '</tr>'+
+                  '</thead>'+
+              '</table>'
+                      )
+          if(i!=quo){
+            for(var j=0; j<10;j++){
+                $('#table'+i).append(
+                '<tbody>'+
+                  '<tr>'+
+                  '<td>'+res[j+10*i].time+'</td>'+
+                  '<td>'+res[j+10*i].NAME+'</td>'+
+                  '<td>'+res[j+10*i].doc_d_day+'</td>'+
+                  '<td>'+res[j+10*i].doc_apply_start+'</td>'+
+                  '<td>'+res[j+10*i].doc_result_release+'</td>'+
+                '</tr>'+
+              '</tbody>'
+                )
+            }
+          }
+          else{
+            for(var j=0; j<rem;j++){
+                $('#table'+quo).append(
+                '<tbody>'+
+                  '<tr>'+
+                  '<td>'+res[length-rem+j].time+'</td>'+
+                  '<td>'+res[length-rem+j].NAME+'</td>'+
+                  '<td>'+res[length-rem+j].doc_d_day+'</td>'+
+                  '<td>'+res[length-rem+j].doc_apply_start+'</td>'+
+                  '<td>'+res[length-rem+j].doc_result_release+'</td>'+
+                '</tr>'+
+              '</tbody>'
+                )
+            }
+          }
+
+        }
+
+        $('.slider').bxSlider();
+      },
+      error:function(err){
+        console.log("/getTestInfo ajax Error",err)
+      }
+    });
+  });
+ </script>
     </head>
 
     <body>
@@ -47,17 +120,10 @@
                     <h4>안녕하세요 <%-nickname%>님:)</h4>
                   </dl>
                 <% } %>
-
-
-
-
-
-
-
-                
-
               </div>
             </div>
+
+
 
             <div id="wrap">
             <!------------------- 서치폼 ------------------->
@@ -90,11 +156,14 @@
                     <button type="button" class="buttonTag">정처기</button>
                 </div>
                 <div class="tag-right">
-                    <a href="#">
-                        <p>당신에게 필요한 자격증은?</p>
-                    </a>
+                  <% if( !nickname ) { %>
+                    <a href="/login"><p>당신에게 필요한 자격증은?</p></a>
+                  <%} else {%>
+                    <a class="mypage" href="#"><p>당신에게 필요한 자격증은?</p></a>
+                    <% }%>   
                 </div>
             </section>
+
 
             <!------------------- 시험 일정 ------------------->
 
@@ -103,77 +172,8 @@
                     <div class="content-header text-center">
                         <h3>다가오는 시험</h3>
                     </div>
-                    <div class="slider">
-                      <div>
-                          <table class="table table-hover data">
-                            <thead>
-                              <tr>
-                                <th>시험명</th>
-                                <th>시험일</th>
-                                <th>성적발표일</th>
-                                <th>접수확인</th>
-                              </tr>
-                            </thead>
-                              <tbody>
-                                  <tr>
-                                    <td>토익</td>
-                                    <td>2020.06.20</td>
-                                    <td>2020.08.20</td>
-                                    <td><a href="#">링크</a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>토익</td>
-                                    <td>2020.06.20</td>
-                                    <td>2020.08.20</td>
-                                    <td><a href="#">링크</a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>토익</td>
-                                    <td>2020.06.20</td>
-                                    <td>2020.08.20</td>
-                                    <td><a href="#">링크</a></td>
-                                  </tr>
-                                  <tr>
-                                    <td>토익</td>
-                                    <td>2020.06.20</td>
-                                    <td>2020.08.20</td>
-                                    <td><a href="#">링크</a></td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                      </div>
-
-                      <div>두번째장</div>
-
-<!-- 
-                      <script type="text/javascript">
-                        $(function(){
-                          $.ajax({
-                            url:'/search',
-                            async : true,
-                            type: 'get',
-                            data : {
-                                    cafe_code : cafe_code,//code라는 keyword 값으로 식당코드번호 보냄
-                        },
-                        dataType: 'json',
-                        success: function(data){ //post 요청 성공시
-                           console.log("김밥천국 식당코드 보내기 성공");
-                        },
-                        error : function(err){
-                            alert("보내기 실패"+err);
-                        }
-                          });
-                        });
-                      </script>
-
- -->
-
-
-
-
-
-
-
+                    <div class="slider" id="slider">
+                      <!-- 시험 테이블 -->
                     </div>
                 </section>
             </main>

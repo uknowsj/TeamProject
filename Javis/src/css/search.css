@@ -28,3 +28,21 @@ p{
 .media-body div:hover svg {
     fill: #337ab7;
 }
+/* 모달창 */
+.modal-title{
+    font-size: 1.8em;
+    font-weight: bold;
+}
+.modal-body h4{
+    font-size: 1.3em;
+    font-weight: bold;
+}
+.modal-footer{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.btn{
+    width: auto;
+    min-width: 100px;
+}

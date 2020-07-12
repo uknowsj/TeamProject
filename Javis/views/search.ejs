@@ -6,25 +6,105 @@
     </head>
 
     <script type="text/javascript">
-            var result = "<%=result%>";
-        console.log(result);
-        for(var i=0;i<result.length;i++)
-        {
-            console.log(result[i].name);
-        }
+    var id;
     //<!------------------- 모달창 ------------------->
-     
+    function getSearchedCerti(id){
+        $.ajax({
+                url:'/getSearchedCerti',
+                data:{
+                    certi_no : id
+                },
+                method:'get',
+                dataType:'json',
+                success:function(res){
+                    $('.modal-body').empty();
+                    if(res==""){
+                        $('.modal-body').append(
+                            '<h4>'+'시험일정 '+'</h4>'+
+                            "시험 정보가 없습니다:("
+                        );
+                    }
+                    else{
+                        $('.modal-body').append(
+                            '<h4>'+'시험일정 '+
+                            '<svg width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-calendar-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">'+
+                                                '<path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>'+
+                                                '<path fill-rule="evenodd" d="M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1zm1-3a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z"/>'+
+                                                '<path fill-rule="evenodd" d="M3.5 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5zm9 0a.5.5 0 0 1 .5.5V1a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5z"/>'+
+                                            '</svg>'+'</h4>')
+                                for(var i=0;i<res.length;i++){
+                                    $('.modal-body').append(
+                                            '<table class="table table-hover">'+
+                                                '<thead>'+
+                                                    '<tr>'+
+                                                        '<th>회차</th>'+
+                                                        '<th>시험일(필기)</th>'+
+                                                        '<th>시험접수일(필기)</th>'+
+                                                        '<th>성적발표일(필기)</th>'+
+                                                        '<th>내 시험 추가</th>'+
+                                                    '</tr>'+
+                                                '</thead>'+
+                                                '<tbody>'+    
+                                                    '<tr>'+
+                                                        '<td>'+res[i].time+'</td>'+
+                                                        '<td>'+res[i].doc_d_day+'</td>'+
+                                                        '<td>'+res[i].doc_apply_start+'</td>'+
+                                                        '<td>'+res[i].doc_result_release+'</td>'+
+                                                        '<td>'+
+                                                            '<input type="radio" name="certi" value="'+res[i].time+'">'+
+                                                        '</td>'+
+                                                    '</tr>'+
+                                                '</tbody>'+
+                                            '<table>'
+                                        );
+                                }
+                    }
+
+                },
+                error:function(err){console.log(id);}
+            });
+    };
+
     $(function(){
             $(".body-top").on("click",function(e){
-
-            $('#modal-body').empty();
                 id = $(this)[0].id; //자격증 pk값
+
+                //모달 바디 내용(시험일정) 전달받기
+                getSearchedCerti(id);
+                
                 title = $('h4#'+id).text();
                 context = $('p#100'+id).text();
+
               $('#myModalLabel').text(title);//modal창 제목
-              $('#myModalbody').text(context);
               $('#myModal').modal('show');
+
             });
+            $("#myModal").on("click",function(e){
+                var date = $('input:radio[name=certi]:checked').val();
+                console.log(date);
+                $("#addTest").click(function(){
+                    var name = "<%=nickname%>"
+                    if(!name){
+                        alert("로그인 후 이용가능합니다.");
+                    }
+                    else{
+                    $.ajax({
+                        url:'/addCertiTest',
+                        method:'get',
+                        data:{
+                            certi_no:id,
+                            time : date
+                        },
+                        dataType:'json',
+                        success:function(res){
+                            alert("내 시험목록에 추가되었습니다.");
+                        },
+                        error:function(err){}
+                    });
+                    }
+                });
+            });
+            //버튼 클릭시 추가
 
         });
 
@@ -64,8 +144,8 @@
                             </div>
                             <div class="media-body">
                                 <div>
-                                    <a href="#"><h4 class="body-top" id="1"><%= item.name %></h4>
-                                    <svg class="body-top" id="1" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <a href="#"><h4 class="body-top" id="<%= item.no %>"><%= item.name %></h4>
+                                    <svg class="body-top" id="<%= item.no %>" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
                                     </svg>
                                     </a>
@@ -153,6 +233,7 @@
 
                             </div>
                             <div class="modal-footer">
+                                <button type="button" class="btn btn-default" id="addTest">추가하기</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                         </div>
@@ -160,9 +241,7 @@
                     </div>
 
 
-            <div class="content-header text-left">
-                <h3>게시글</h3>
-            </div>
+
         </div>
     </body>
 </html>

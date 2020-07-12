@@ -29,7 +29,7 @@
                     <li><a href="login">로그인</a></li>
                   <% } else { %> <!-- 로그인된 상태 -->      
                     <li><a href="board">게시판</a></li>
-                    <li><a id="mypage" href="#">마이페이지</a></li>
+                    <li><a class="mypage" href="#">마이페이지</a></li>
                     <li><a href="logout">로그아웃</a></li>
                   <% } %>
             </ul>
@@ -40,7 +40,7 @@
 
 <script type="text/javascript">
     $(function(){
-        $("#mypage").click(function(){
+        $(".mypage").click(function(){
             var form = document.createElement('form');
                 var objs;
                 objs = document.createElement('input');
